@@ -29,6 +29,13 @@ class ViewController: UIViewController {
             vc.view.backgroundColor = UIColor.white
             vc.title = item
             
+            let push = UIButton(type: UIButtonType.custom)
+            push.frame = CGRect(x: UIScreen.main.bounds.width/2.0 - 30, y: 100, width: 60, height: 44)
+            push.setTitle("push", for: .normal)
+            push.setTitleColor(UIColor.black, for: .normal)
+            push.addTarget(self, action: #selector(ViewController.push), for: .touchUpInside)
+            vc.view.addSubview(push)
+            
             vc.tabBarItem = UITabBarItem(title: item, image: nil, selectedImage: nil)
             
             let nav = UINavigationController(rootViewController: vc)
@@ -40,6 +47,16 @@ class ViewController: UIViewController {
         
         self.addChildViewController(tab)
         self.view.addSubview(tab.view)
+    }
+    
+    func push() {
+        
+        guard let tab = self.childViewControllers.first as? UITabBarController else { return }
+        guard let nav = tab.selectedViewController as? UINavigationController else { return }
+        let test = UIViewController()
+        test.view.backgroundColor = UIColor.white
+        test.title = "second page of tab  \(tab.selectedIndex)"
+        nav.pushViewController(test, animated: true)
     }
 }
 
